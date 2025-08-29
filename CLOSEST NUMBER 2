@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+    while (T--) {
+        long long a, b, x;
+        cin >> a >> b >> x;
+        long double value = pow((long double)a, (long double)b);
+        long double div = value / x;
+        long long lower = floor(div) * x;
+        long long upper = ceil(div) * x;
+
+        if (fabs(value - lower) < fabs(value - upper)) {
+            cout << lower << "\n";
+        } else if (fabs(value - lower) > fabs(value - upper)) {
+            cout << upper << "\n";
+        } else {
+            cout << min(lower, upper) << "\n";
+        }
+    }
+    return 0;
