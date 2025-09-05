@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    long long r, c;
+    cin >> r >> c;
+
+    long long block = (r - 1) / 2;       
+    long long base = block * 10;         
+
+    long long start = (r % 2 == 1) ? base : base + 1; 
+    long long result = start + (c - 1) * 2;
+
+    cout << result << endl;
+    return 0;
+}
