@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+int main() {
+    int T;
+    cin >> T;
+
+    while (T--) {
+        int a, b, c;
+        cin >> a >> b >> c;
+
+        int maxCapacity = max(a, b);
+        int commonDivisor = gcd(a, b);
+
+        if (c <= maxCapacity && c % commonDivisor == 0) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
+    }
+
+    return 0;
+}
