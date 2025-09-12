@@ -1,0 +1,65 @@
+#include <iostream>
+#include <queue>
+#include <unordered_map>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+vector<int> getFactors(int n) {
+    vector<int> factors;
+    for (int i = 2; i <= sqrt(n); ++i) {
+        if (n % i == 0) {
+            factors.push_back(i);
+            if (i != n / i)
+                factors.push_back(n / i);
+        }
+    }
+    return factors;
+}
+
+int minMoves(int n) {
+    queue<int> q;
+    unordered_map<int, int> distance;
+
+    q.push(n);
+    distance[n] = 0;
+
+    while (!q.empty()) {
+        int current = q.front();
+        q.pop();
+
+        if (current == 0)
+            return distance[current];
+
+    
+        if (distance.find(current - 1) == distance.end()) {
+            distance[current - 1] = distance[current] + 1;
+            q.push(current - 1);
+        }
+
+        
+        vector<int> factors = getFactors(current);
+        for (int f : factors) {
+            int next = max(f, current / f);
+            if (distance.find(next) == distance.end()) {
+                distance[next] = distance[current] + 1;
+                q.push(next);
+            }
+        }
+    }
+    return -1; 
+}
+
+int main() {
+    int q;
+    cin >> q;
+
+    while (q--) {
+        int n;
+        cin >> n;
+        cout << minMoves(n) << endl;
+    }
+
+    return 0;
+}
