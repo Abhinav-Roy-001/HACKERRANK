@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string smallestMultiple(int n) {
+    vector<int> parent(n, -1);
+    vector<char> digit(n);
+    queue<int> q;
+
+    int start = 9 % n;
+    parent[start] = -2;  // mark start
+    digit[start] = '9';
+    q.push(start);
+
+    while (!q.empty()) {
+        int r = q.front(); q.pop();
+        if (r == 0) break;
+
+        for (char d : {'0', '9'}) {
+            int nr = (r * 10 + (d - '0')) % n;
+            if (parent[nr] == -1) {
+                parent[nr] = r;
+                digit[nr] = d;
+                q.push(nr);
+            }
+        }
+    }
+
+    string ans;
+    for (int r = 0; r != -2; r = parent[r]) ans += digit[r];
+    reverse(ans.begin(), ans.end());
+    return ans;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T, N;
+    cin >> T;
+    while (T--) {
+        cin >> N;
+        cout << smallestMultiple(N) << '\n';
+    }
+    return 0;
+}
